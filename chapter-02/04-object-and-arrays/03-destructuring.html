@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Destructuring</title>
+</head>
+<body>
+  <h1>Destructuring</h1>
+  <p>Open the Console - 객체인자</p>
+  <script>
+    const lordify = ({spouse: {firstname}}) => {
+      console.log(`캔터베리의 영주 부인: ${firstname}`);
+    };
+
+    var regularPerson = {
+      firstname: "감찬",
+      lastname: "강",
+      spouse: {
+        firstname: "부인",
+        lastname: "강"
+      }
+    }
+    lordify(regularPerson);
+  </script>
+</body>
+</html>

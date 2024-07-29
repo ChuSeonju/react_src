@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Literal-enhancement</title>
+</head>
+<body>
+  <h1>Object - es6</h1>
+  <p>Open the Console</p>
+  <script>
+    // es6 문법
+    class Fruit {
+      constructor(name) {
+        this.name = name;
+        this.type = "apple";
+      }
+
+      getName(){
+        return this.name;
+      };
+    }
+    let fruit = new Fruit("apple");
+    console.log(fruit.getName());
+
+  </script>
+</body>
+</html>

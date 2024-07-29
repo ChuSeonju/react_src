@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>전개 연산자</title>
+</head>
+<body>
+  <h1>전개 연산자(스프레드 연산자) - 객체 나머지 매개변수</h1>
+  <p>Open the Console</p>
+  <script>
+    // 함수 인자 -> 매개변수 가능
+    function fruit(apple, pear) {
+      return apple + pear;
+    }
+
+    const data = [10, 20];
+    const result = fruit(...data); // fruit(10, 20)
+    console.log(result);
+
+    const fruit1 = [10, 20];
+    const fruit2 = [30, 40];
+
+    const result2 = [0, ...fruit1, ...fruit2, 50];
+    console.log(result2.length);
+
+    const result3 = [..."abcde"];
+    console.log(result3);
+
+    function fruit3 (apple, pear, ...arr) {
+      console.log(arr);
+    }
+    
+    fruit3(10, 20, 30, 40, 50);
+
+  </script>
+</body>
+</html>

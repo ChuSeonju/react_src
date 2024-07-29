@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>화살표 함수</title>
+</head>
+<body>
+  <h1>화살표 함수</h1>
+  <p>Open the Console</p>
+  <script>
+    // 기존 함수
+    var fruit = function(apple, pear) {
+      var cart = apple * pear;
+      return cart;
+    }
+
+    var result = fruit(10, 20);
+    console.log(result);
+
+
+    // fruit2 함수를 작성하세요
+    var fruit2 = (apple, pear) => {
+      // 1. 
+      // var cart = apple * pear;
+      // return cart; 
+      //2. 
+       return apple * pear;
+    }
+    var result2 = fruit2(10, 20); 
+    console.log(result);
+
+    // 3/.return문은 수행문 하나일때 생략 가능, 수행문이 하나일때는 중괄호 생략 가능
+    var fruit2 = (apple, pear) => apple * pear;
+    console.log(fruit2(10, 20));
+
+
+  </script>
+</body>
+</html>

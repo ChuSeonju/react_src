@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>전개 연산자</title>
+</head>
+<body>
+  <h1>전개 연산자(스프레드 연산자) - 나머지 매개변수</h1>
+  <p>Open the Console</p>
+  <script>
+    function directions(...args){ // 나머지 매개변수
+      // ...args -> [ "서울", "수원", "천안", "대전", "대구", "부산" ]
+      let [start, ...remaining] = args; // start -> "서울"
+      // remaining -> [ "수원", "천안", "대전", "대구", "부산" ]
+      let [finish, ...stops] = remaining.reverse(); //finish -> "부산"
+      // stops -> [ "대구", "대전", "천안", "수원" ]
+
+      console.log(`${args.length}개 도시를 운행합니다.`);
+      console.log(`${start}에서 출발합니다.`);
+      console.log(`목적지는 ${finish}입니다.`);
+      console.log(`중간에 ${stops.length}곳을 들립니다.`)
+    }
+
+
+
+    directions("서울", "수원", "천안", "대전", "대구", "부산");
+  </script>
+</body>
+</html>

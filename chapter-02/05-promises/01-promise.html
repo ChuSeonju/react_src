@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>비동기통신.. 동기적이라구요..?</title>
+</head>
+<body>
+  <h1>기본적인 promise</h1>
+  <p>Open the Console</p>
+  <script>
+    const f1 = (cb) => {
+      setTimeout(function(){
+        console.log("1번 주문 완료");
+        cb(); // 콜백 함수 인자로 받아 1초 후에 실행
+      }, 1000);
+    };
+
+    const f2 = (cb) => {
+      setTimeout(function(){
+        console.log("2번 주문 완료");
+        cb(); // 콜백 함수 인자로 받아 3초 후에 실행
+      }, 3000);
+    };
+
+    const f3 = (cb) => {
+      setTimeout(function(){
+        console.log("3번 주문 완료");
+        cb(); // 콜백 함수 인자로 받아 2초 후에 실행
+      }, 2000);
+    };
+
+    console.log("시작");
+
+    f1(function(){
+      f2(function(){
+        f3(function(){
+          console.log("끝");
+        });
+      });
+    });
+
+
+  </script>
+</body>
+</html>

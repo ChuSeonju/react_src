@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Literal-enhancement</title>
+</head>
+<body>
+  <h1>Literal-enhancement</h1>
+  <p>Open the Console</p>
+  <script>
+    var name = "Julia Mancuso";
+    var sound = "go fast";
+
+    const skier = {
+      name: name,
+      sound: sound,
+      powderYell(){
+        var yell = this.sound.toUpperCase();  // GO FAST
+        console.log(`${yell} ${yell} ${yell}!!!`);
+      },
+      speed(mph) {
+        this.speed = mph; // 객체 속성 추가
+        console.log("speed: ", mph);
+      }
+    };
+
+    skier.powderYell();
+    skier.speed("hair on fire");
+    console.log(JSON.stringify(skier));
+  </script>
+</body>
+</html>

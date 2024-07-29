@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>비동기통신</title>
+</head>
+<body>
+  <h1>기본적인 promise</h1>
+  <p>Open the Console</p>
+  <script>
+    const f1 = () => {
+      return new Promise((res, rej) => {
+        setTimeout(() => {
+          res("1번 주문 완료");
+        }, 1000);
+      });
+    };
+
+    const f2 = (message) => {
+      console.log(message);
+      return new Promise((res, rej) => {
+        setTimeout(() => {
+          res("2번 주문 완료");
+        }, 3000);
+      });
+    };
+
+    const f3 = (message) => {
+      console.log(message);
+      return new Promise((res, rej) => {
+        setTimeout(() => {
+          res("3번 주문 완료");
+        }, 2000);
+      });
+    };
+
+    // console.time("시작");
+    // f1()
+    //   .then((res) => f2(res))
+    //   .then((res) => f3(res))
+    //   .then((res) => console.log(res))
+    //   .catch(console.log)
+    //   .finally(() => {console.timeEnd("시작")});
+  // 동기방식: 총 6초
+
+
+    // 제일 오래 걸리는 작업까지 병행 진행시간
+    // console.time("x");
+    // Promise.all([f1(), f2(), f3()]).then((res) => {
+    //   console.log(res);
+    //   console.timeEnd("x");
+    // });
+  // 비동기 방식: 제일 오래걸리는 작업까지 병행 대략 3초
+
+    // 먼저 종료되는 작업이 나올때까지 작업실행 /경주처럼 젤 빠른애 작업까지 진행시간
+    console.time("s");
+    Promise.race([f1(), f2(), f3()]).then((res) => {
+      console.log(res);
+      console.timeEnd("s");
+    });
+  // 비동기 방식: 병행처리 먼저 끝나는 작업이 나오면 종료 1초
+
+  </script>
+</body>
+</html>

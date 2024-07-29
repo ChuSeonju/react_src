@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>전개 연산자</title>
+</head>
+<body>
+  <h1>전개 연산자(스프레드 연산자) - 객체 나머지 매개변수</h1>
+  <p>Open the Console</p>
+  <script>
+    const Meals = {
+      breakfast: "미역국",
+      lunch: "삼치구이와 보리밥",
+    }
+    
+    const dinner = "스테이크 정식";
+
+    // const backpackingMeals = {
+    //   ...Meals,
+    //   dinner
+    // }
+
+    // 아래의 문법은 리액트 객체 항목의 데이터를 변경 시 많이 사용하는 문법
+    // 매우 즁요
+    const backpackingMeals = {
+      ...Meals,
+      lunch: "도시락",  // lunch 객체 업데이트
+      dinner
+    }
+
+    console.log(backpackingMeals);
+  </script>
+</body>
+</html>

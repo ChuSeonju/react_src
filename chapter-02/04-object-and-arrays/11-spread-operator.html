@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>전개 연산자</title>
+</head>
+<body>
+  <h1>전개 연산자</h1>
+  <p>Open the Console</p>
+  <script>
+    const peaks = ["대청봉", "중청봉", "소청봉"];
+    const [last] = peaks.reverse();
+
+    console.log(last); // 소청봉이 찍히는데 
+    console.log(peaks.join(", ")); // 애도 리버스 돼버림 / 소청봉, 중청봉, 대청봉
+  </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Destructuring</title>
+</head>
+<body>
+  <h1>Destructuring</h1>
+  <p>Open the Console</p>
+  <script>
+    const sandwich = {
+      bread: "더치 크런치",
+      meat: "참치",
+      cheese: "스위스",
+      toppings: ["상추", "토마토", "머스타드"]
+    }
+    // 구조 분해를 사용한 대입
+    let {bread, meat} = sandwich;
+    console.log(bread, meat);
+    
+    // 재할당
+    bread = "마늘";
+    meat = "칠면조";
+    console.log(bread, meat);
+
+    console.log(sandwich.bread, sandwich.meat);
+  </script>
+</body>
+</html>
