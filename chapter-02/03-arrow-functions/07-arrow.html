@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arrow Functions</title>
+</head>
+<body>
+  <h1>Arrow Functions</h1>
+  <p>Open the Console</p>
+  <script>
+    // Function / this를 쓸 때 유의할 점
+    var tahoe = {
+      resorts: ["Kirkwood", "Squaw", "Alpine", "Havenly", "Northstar"],
+      print: function(delay=1000) { // print 인자 값에 아무것도 주지 않으면 delay가 디폴트로 들어감
+        setTimeout(function(){
+          console.log(this.resorts.join(", ")); // this -> window : 에러발생 
+        }, delay);
+      }
+    }
+
+    tahoe.print(); // Cannot read properties of undefined
+  </script> 
+</body>
+</html>

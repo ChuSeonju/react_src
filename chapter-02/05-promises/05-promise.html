@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Promise</title>
+</head>
+<body>
+  <h1>async  await</h1>
+  <p>Open the Console</p>
+  <script>
+    // const getFakeMemgers = async() => {
+    //   let res = await fetch("https://api.randomuser.me/?nat=US&results=5")
+    //   let {results} = await res.json();
+    //   console.log(results);
+    // };
+
+    // getFakeMemgers();
+
+/*
+보안상의 이유로 
+서로 다른 도메인(ex: http://127.0.0.1:5500/ 과 http://localhost:8090)
+에 있는 자원에 대한 접근을 제한하는 동일 출처 정책을 가지고 있습니다.
+  -> cors 
+
+*/
+
+    // const getNews = async() => {
+    //   let res = await fetch("http://localhost:8090/api/news");
+    //   let results = await res.json();
+    //   console.log(results);
+    // }
+
+    // getNews();
+
+    fetch("http://localhost:8090/api/news/2")
+      .then((response) => response.json())
+      .then((response) => console.log(response))
+      .catch((err) => console.error(err));
+
+
+  </script>
+</body>
+</html>

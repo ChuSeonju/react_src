@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arrow Functions</title>
+</head>
+<body>
+  <h1>Arrow Functions</h1>
+  <p>Open the Console</p>
+  <script>
+    // Arrow Function / this를 쓸 때 유의할 점
+    var tahoe = {
+      resorts: ["Kirkwood", "Squaw", "Alpine", "Havenly", "Northstar"],
+      
+      print: function(delay=1000) {
+        setTimeout(() => {
+          console.log(this.resorts.join(", ")); // this -> window : true
+                                                // this -> tahoe : false
+        }, delay);
+      }
+    }
+
+    tahoe.print();
+
+  </script> 
+</body>
+</html>

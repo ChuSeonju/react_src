@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arrow Functions</title>
+</head>
+<body>
+  <h1>Arrow Functions</h1>
+  <p>Open the Console</p>
+  <script>
+    // Function
+    var lordify = function(firstName, land) {
+      if(!firstName) {
+        throw new Error("A firstName is required to lordify");
+      }
+      if(!land) { // undefined, null, ' ' -> false
+        throw new Error("A lord must have a land");
+      }
+      return `${firstName} of ${land}`;
+    }
+
+    //console.log(lordify("kelly", "Sonoma"));
+    console.log(lordify("Dave")); // Error: A lord must have a land / 함수쪽 if를 주석처리하면 Dave of undefined 이케 나옴
+  </script> 
+</body>
+</html>

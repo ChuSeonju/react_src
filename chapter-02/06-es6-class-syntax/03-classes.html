@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inheritance</title>
+</head>
+<body>
+  <h1>Classes</h1>
+  <p>Open the Console</p>
+  <script>
+    class Vacation {
+      constructor(destination, length) {
+        this.destination = destination; // 생성자에서 멤버변수 만들어 줌 /자바와 다른점
+        this.length = length;
+      }
+      print(){
+        console.log(`${this.destination} will take ${this.length} days.`);
+      }
+    }
+
+    class Expedition extends Vacation {
+      constructor(destination, length, gear) {
+        super(destination, length); 
+        this.gear = gear;
+      }
+      print() {
+        super.print();
+        console.log(`bring your ${this.gear.join(" and your ")}`);
+      }
+    }
+
+    const trip = new Expedition("Mt. Whitney", 3, ["sunglasses", "prayer flags", "camera"]);
+    trip.print();
+    
+  </script>
+</body>
+</html>
