@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>재귀함수</title>
+</head>
+<body>
+  <h1>재귀함수</h1>
+  <p>Open the Console</p>
+  <script>
+    const countdown = (value, fn, delay = 1000) => {
+      // fn =   (value) => console.log(value);
+      fn(value);
+      return value > 0
+        ? setTimeout(() => countdown(value-1, fn), delay)
+        : value;
+    };
+
+    const log = (value) => console.log(value);
+    countdown(10, log);
+
+  </script>
+  
+</body>
+</html>

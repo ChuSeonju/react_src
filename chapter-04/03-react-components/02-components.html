@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>순수 리액트 예제</title>
+</head>
+<body>
+  <!-- 타겟 컨테이너 -->
+  <div id="root"></div>
+  
+<!--   React 와 ReactDOM 라이브러리
+  React 라이브러리는 뷰를 만들기 위한 라이브러리
+  react-dom UI를 실제로 브라우저에 랜더링할 때 사용하는 라이브러리   
+-->
+  <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+  <script>
+    // 순수 리액트와 자바스크립트 코드
+    const items = [
+      "연어 900그램",
+      "신선한 로즈마리 5가지",
+      "올리브 오일 2 테이블스푼",
+      "작은 레몬 2 조각",
+      "코셔 소금 1 티스푼",
+      "다진 마늘 4쪽",
+    ];
+
+    class IngredientsList extends React.Component {
+      render() {
+        return React.createElement(
+          "ul",
+          { className: "ingredients"},
+          this.props.items.map((ingredient, i) => 
+            React.createElement("li", {key: i}, ingredient)
+          )
+        );
+      }
+    }
+
+    ReactDOM.render(
+      React.createElement(IngredientsList, {items}, null),
+      document.getElementById("root")
+    );
+
+    const gangwon = {
+      resorts: ["용평", "평창", "강촌"],
+      print:  function(delay = 1000){
+        //console.log(this.resorts);
+        setTimeout (
+          () => {
+            console.log("this:" , this);
+            console.log(this.resorts.join(","));
+          },
+          delay
+        );
+      }
+    };
+
+    gangwon.print();
+
+  </script>
+</body>
+</html>

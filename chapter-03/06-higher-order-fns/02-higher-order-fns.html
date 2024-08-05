@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>고차함수</title>
+</head>
+<body>
+  <h1>고차함수</h1>
+  <p>함수를 인자 또는 리턴값, 둘다 가능</p>
+  <script>
+
+    const getFakeMembers = (count) =>
+      new Promise((resolves, rejects) => {
+        const api = `https://api.randomuser.me/?nat=US&results=${count}`;
+        const request = new XMLHttpRequest();
+        request.open("GET", api);
+        request.onload = () =>
+          request.status === 200 
+            ? resolves(JSON.parse(request.response).results)
+            : reject(Error(request.statusText));
+        request.onerror = (err) => rejects(err);
+        request.send();
+      });
+    
+
+    // 부분적용: 함수의 인자 일부를 고정한 새로운 함수를 생성  
+    const userLogs = (userName) => (message) => 
+      console.log(`${userName} -> ${message}`);
+
+    const log =  userLogs("grandpa23");   
+//  const log =   (message) => console.log(`grandpa23 -> ${message}`);; 
+    log("attempted to load 20 fake members;") ; 
+
+    getFakeMembers(5).then (
+      (members) => log(`successfully loaded ${members.length} members`),
+      (error) => log("encountered an error loading members")
+    );
+
+
+
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ES6</title>
+</head>
+<body>
+  <h1>ES6- 구조분해할당</h1>
+  <p>Open the Console</p>
+  <script>
+    // 배열구조분해할당
+    
+    let [x, y] = [10, 20];
+    console.log(x);
+    console.log(y);
+
+    let users = ["Mike", "Tom", "Jane"];
+    // let u1 = users[0];
+    // let u2 = users[1];
+    // let u3 = users[2];
+
+    let [u1, u2, u3] = users;
+    console.log(u3);
+
+    let [a, b, c=3] = [1,2];
+    console.log(c);
+
+    let [user1, ,user3] = ["Mike", "Tom", "Jane"];
+    console.log(user1);
+    console.log(user3);
+
+  </script>
+</body>
+</html>

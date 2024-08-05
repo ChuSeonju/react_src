@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>고차함수</title>
+</head>
+<body>
+  <h1>고차함수</h1>
+  <p>함수를 인자 또는 리턴값, 둘다 가능</p>
+  <script>
+/*    
+    const numbers = [1, 2, 3, 4];
+
+    // reduce 함수: 누적값을 계산할 때 활용하는 조금 독특한 메소드입니다.
+    //              매번 실행 되는 콜백함수의 리턴값이 첫번째 파라미터(accumulator)로 전달된다.
+    const sumAll = numbers.reduceRight( (accumulator, element, index, array) => {
+      console.log(`element : ${element} `);
+      return accumulator + element;   // accumulator =  accumulator + element
+    } , 0);
+
+    console.log(sumAll);  // 10
+*/
+
+// reverse   ex)  hello  ->  olleh   
+//            o + l + l + e + h =>    olleh 
+    let str = "hello";
+
+    const reverse = ( s ) => s.split("").reduceRight((x, y)=> x + y);
+
+    console.log(reverse(str));
+
+  </script>
+  
+</body>
+</html>

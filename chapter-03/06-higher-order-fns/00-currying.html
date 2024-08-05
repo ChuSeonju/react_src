@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>고차함수</title>
+</head>
+<body>
+  <h1>함수형 패턴</h1>
+  <p>커링(Currying) & 부분 적용(Partial Application)</p>
+  <script>
+    // 커링: 함수의 분해기법, 다수의 인자를 가지는 함수 대신
+    //      하나의 인자를 가지는 연속된 함수들의 중첩함수
+    function makeCoffee(roastType) {
+      return function(sugar){
+        return function(cream){
+          return console.log(`Coffee: ${roastType}, sugar: ${sugar}, cream: ${cream}`);
+        }
+      }
+    }
+
+    makeCoffee("Dark Roast")(1)(2);
+
+  </script>
+  
+</body>
+</html>

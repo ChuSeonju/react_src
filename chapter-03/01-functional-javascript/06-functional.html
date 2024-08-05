@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>함수형이란 무엇인가?</title>
+</head>
+<body>
+  <h1>함수형 자바스크립트</h1>
+  <p>콘솔을 보세요!</p>
+  <script>
+    const createScream = function(logger) {
+
+      return function(message) {
+        // logger = message => console.log(message)
+        logger(message.toUpperCase() + "!!!" );
+      }
+    }
+
+    const scream = createScream(message => console.log(message));
+/*
+const scream = function(message) {
+                  logger = message => console.log(message)
+                  logger(message.toUpperCase() + "!!!" );
+               }
+*/
+    scream('함수가 함수를 반환할 수도 있습니다.');
+    scream('createScream은 함수를 반환합니다.');
+    scream('scream 은 createScream이 반환한 함수를 가리킵니다.');
+  </script>
+</body>
+</html>

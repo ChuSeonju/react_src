@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>함수형프로그래밍 핵심개념 - 불변성</title>
+</head>
+<body>
+  <h1>불변성</h1>
+  <p>함수형프로그래밍 핵심개념 - 첫번째</p>
+  <script>
+    let color_lawn = {
+      title: "잔디색",
+      color: "#00ff00",
+      rating: 0
+    }
+
+    // 맴버변수와 매개변수 명이 같으면 하나의변수명 처리가능
+    // 객체를 리턴 시에는 괄호로 묶어주어야 한다.
+    const rateColor = (color, rating) => ({
+      ...color,
+      rating
+    });
+
+    console.log(rateColor(color_lawn, 5).rating); // 5
+    console.log(color_lawn.rating); // 0
+
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>함수형프로그래밍 핵심개념 - 불변성</title>
+</head>
+<body>
+  <h1>불변성</h1>
+  <p>함수형프로그래밍 핵심개념 - 첫번째</p>
+  <script>
+    let list  = [
+      {title: "Red Red"}, 
+      {title: "Lawn"},
+      {title: "Party Pink"},
+    ];
+
+    var addColor = (title, arrays) => arrays.concat({title});
+
+    console.log(addColor("화려한 녹색", list).length); // 4
+    console.log(list);
+    console.log(list.length);  // 3
+
+
+  </script>
+  
+</body>
+</html>

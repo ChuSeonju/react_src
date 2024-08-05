@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ES6</title>
+</head>
+<body>
+  <h1>ES6</h1>
+  <p>Open the Console</p>
+  <script>
+    // arr.sort(): 배열 자체가 변경, 인수로 정렬 로직 추가
+
+    let arr = [27, 8, 5, 13];
+
+    function fn(a, b) {
+      console.log('--------------');
+      console.log(a, b);
+      return a - b;
+    }
+    arr.sort(fn);
+
+    // arr.sort();  // 문자열처럼 정렬 13, 27, 5, 8
+
+    console.log(arr);
+
+  </script>
+</body>
+</html>

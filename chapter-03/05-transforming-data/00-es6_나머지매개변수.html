@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ES6</title>
+</head>
+<body>
+  <h1>ES6- 나머지 매개 변수, 전개구문</h1>
+  <p>Open the Console</p>
+  <script>
+/*    
+    function showName(name) {
+      console.log(name);
+      console.log(arguments.length);
+      console.log(arguments[1]);
+    }
+    showName("Mike", "Tom");
+*/
+    function showName(...name){
+      // 나머지 매개변수 -> 매개변수 배열
+      console.log(name);
+    }
+    showName("Mike", "Tom");
+    showName("Mike");
+    showName("Mike", "Tom", "Jane");
+
+    // 전달 받은 모든수를 더해주는 함수
+    function add(...nums) {
+      // let result = 0;
+      // nums.forEach((num)=> (result += num));
+      // console.log(result);
+      let result = nums.reduce((prev, num) => prev + num);
+      console.log(result);
+    }
+
+    add(1, 2, 3);
+    add(1,2,3,4,5,6,7,8,9,10);
+
+    function User(name, age, ...skills) {
+      this.name = name;
+      this.age = age;
+      this.skills = skills; // [ ]
+    }
+
+    const user1 = new User("Mike", 29, "html", "css", "JavaScript");
+    console.log(user1);
+
+    const user2 = new User("Tom", 24, "js", "React");
+    console.log(user2);
+
+  </script>
+</body>
+</html>

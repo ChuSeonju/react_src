@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transforming Data</title>
+</head>
+<body>
+  <h1>Transforming Data</h1>
+  <p>open the console</p>
+  <script>
+    const schools = ["Yorktown", "Washington & Lee", "Wakefield"];
+
+    const wSchools = schools.filter( (school) => school[0] === "W" );
+    // 필터 함수는 술어(predicate)를 유일한 인자로 받아 처리한다.
+    //     술어는 불린(true, false)값을 반환하는것
+    //     술어 -> 서술어 : 동작, 상태, 성질 등을 서술하는 말
+    console.log(wSchools);
+    
+  </script>
+  
+</body>
+</html>

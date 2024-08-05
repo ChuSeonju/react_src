@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>함수형이란 무엇인가?</title>
+</head>
+<body>
+  <h1>함수형 자바스크립트</h1>
+  <p>콘솔을 보세요!</p>
+  <script>
+    const insideFn = logger => {
+      // logger = message => console.log(message); // 매우중요
+      logger("함수를 다른 함수에 인자로 넘길수도 있습니다.");
+    }
+
+    insideFn(message => console.log(message));
+
+  </script>
+</body>
+</html>

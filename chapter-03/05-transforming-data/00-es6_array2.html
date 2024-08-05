@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ES6</title>
+</head>
+<body>
+  <h1>ES6</h1>
+  <p>Open the Console</p>
+  <script>
+    let arr = [1, 2, 3, 4, 5];
+    let result = 0;
+    arr.forEach((num)=>{
+      result += num;
+    });
+/*
+    arr.reduce( 함수,  초깃값): 인수로 함수를 받음 - 고차함수
+      함수: (누적계산값, 현재값) => { return 계산값 }
+*/
+    const rslt = arr.reduce((prev, cur)=>{
+      //console.log(prev);
+      return prev + cur;  // prev = 0+1,   1+2,  3+3,  6+4, 10+5
+    }, 0);
+    //console.log(rslt);
+
+    let userList = [
+      {name: "Mike", age: 30},
+      {name: "Tom",  age: 10},
+      {name: "Jane", age: 27},
+      {name: "Sue", age: 26},
+      {name: "Harry", age: 42},
+      {name: "Steve", age: 60},
+    ];
+    // userList에서 나이합계 구하기
+    log = console.log;
+    let ageSum = userList.reduce((prev, cur)=>{
+      return (prev += cur.age); // 나이 합계
+    }, 0);
+    log(ageSum);
+
+    
+    let arrRslt = userList.reduce((prev, cur)=>{
+      // // 이름이 3글자인 회원을 배열로 만드시요
+      // if(cur.name.length === 3) {
+      //   prev.push(cur.name); 
+      // }
+      // 성인(age > 19) 배열 을 만드시요
+      if(cur.age > 19) {
+        prev.push(cur.name);
+      }
+      return prev;
+    }, []);
+    log(arrRslt);
+
+  </script>
+</body>
+</html>

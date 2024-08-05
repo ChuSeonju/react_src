@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transforming Data</title>
+</head>
+<body>
+  <h1>Transforming Data</h1>
+  <p>Open the Console</p>
+  <script>
+    const schools = [
+      {name: "Yorktown", age: 30}, 
+      {name: "Stratford", age: 50}, 
+      {name: "Washington & Lee", age: 20}, 
+      {name: "Wakefield", age: 5} 
+    ];
+
+    const editName = (oldName, name, arr) =>
+      arr.map((item)=>
+        (item.name === oldName) ? {...item, name} : item );
+//  {...item, name:name}  -> {name: "Stratford", age: 50, name:"HB Woodlawn" }
+    let updateSchools = editName("Stratford", "HB Woodlawn", schools);
+
+
+    const editNameSeq = (n, name, arr) =>
+      arr.map((item, i) =>((i==n) ? {...item, name} : item) );
+      // arr.map((element, index, array)=>{})
+
+    let updateSchools2 = editNameSeq(2, "Mansfield", schools);  
+
+    console.log(updateSchools2[2]);
+    console.log(schools[2]);
+
+    // console.log(updateSchools[1]);
+    // console.log(schools[1]);
+  </script>
+  
+</body>
+</html>

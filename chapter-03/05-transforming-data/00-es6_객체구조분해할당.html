@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ES6</title>
+</head>
+<body>
+  <h1>ES6- 구조분해할당</h1>
+  <p>Open the Console</p>
+  <script>
+    
+    let user = {
+      addr: "seoul",
+      name: "Jane",
+      age: 24,
+      gender: "female",
+    }
+    // let name = user.name;
+    // let age = user.age;
+    let { name, age } = user;  // es6 객체 구조분해 할당
+    console.log(name);
+    console.log(age);
+
+    let {name: userName, age: userAge} = user;
+    console.log(userName);
+
+    // function f1(user) {
+    //   console.log(user.gender);
+    // }
+
+    // function f1({ age, gender }) {
+    //   console.log(`age: ${age}, gender: ${gender}`);
+    // }
+
+    function f1(user) {
+      let { age, gender } = user;
+      console.log(`age: ${age}, gender: ${gender}`);
+    }
+
+    f1(user);
+
+
+  </script>
+</body>
+</html>

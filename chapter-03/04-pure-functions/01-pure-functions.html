@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>순수 함수</title>
+</head>
+<body>
+  <h1>함수형 프로그래밍 특성 - 순수함수</h1>
+  <p>open the console</p>
+  <script>
+    /*
+    파라미터(매개변수)에 의해서만 반환값이 결정되는 함수
+    (최소한 하나 이상의 인수를 받고 인자가 같으면 똑같은 결과를 반환,
+     부수 효과 (side effect) 가 없어야한다.)
+    */
+    const fredrick = {
+      name: "Frederick Douglass",
+      canRead: false,
+      canWrite: false,
+    }
+    // 매개변수 없고 외부효과 발생시키므로 순수함수 아님
+    function selfEducate() {
+      fredrick.canRead = true;
+      fredrick.canWrite = true;
+      return fredrick;
+    }
+
+    selfEducate();
+    console.log(fredrick);
+
+
+  </script>
+</body>
+</html>

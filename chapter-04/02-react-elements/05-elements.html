@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>순수 리액트 예제</title>
+</head>
+<body>
+  <!-- 타겟 컨테이너 -->
+  <div id="react-container"></div>
+  
+<!--   React 와 ReactDOM 라이브러리
+  React 라이브러리는 뷰를 만들기 위한 라이브러리
+  react-dom UI를 실제로 브라우저에 랜더링할 때 사용하는 라이브러리   
+-->
+  <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+  <script>
+    // 순수 리액트와 자바스크립트 코드
+    // 데이터를 가지고 엘리먼트 만들기
+    const items = [
+      "연어 900그램",
+      "신선한 로즈마리 5가지",
+      "올리브 오일 2 테이블스푼",
+      "작은 레몬 2 조각",
+      "코셔 소금 1 티스푼",
+      "다진 마늘 4쪽",
+    ];
+    // React.createElement("ul", {className: "ingredients" },
+    //     React.createElement("li", null, "연어 900그램"),
+    //     React.createElement("li", null, "신선한 로즈마리 5가지"),
+    //     React.createElement("li", null, "올리브 오일 2 테이블스푼"),
+    //     React.createElement("li", null, "작은 레몬 2 조각"),
+    //     React.createElement("li", null, "코셔 소금 1 티스푼"),
+    //     React.createElement("li", null, "다진 마늘 4쪽"),
+    //    ),
+
+    const ingredients = React.createElement("ul", {className: "ingredients"},
+      items.map((ingredient, i) => React.createElement("li", {key: i}, ingredient ))
+    );
+    ReactDOM.render(ingredients, document.getElementById("react-container"));
+
+    console.log("ingredients", ingredients);
+  </script>
+</body>
+</html>

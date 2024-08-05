@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>합성-compose</title>
+</head>
+<body>
+  <h1>합성- pipe</h1>
+  <p>Open the Console</p>
+  <script>
+    // return값이 함수인 고차함수
+    const ingredientAdd = (ingredient) => (input) => `${input}, ${ingredient}`;   
+
+    const bacon = ingredientAdd("Bacon");     // const bacon   = (input) => `${input}, Bacon`
+    const lettuce = ingredientAdd("Lettuce"); // const lettuce = (input) => `${input}, Lettuce`
+    const cheese = ingredientAdd("Cheese");   // const cheese  = (input) => `${input}, Cheese`
+
+    const pipe = (...functions) => input =>
+      functions.reduce( (accu, func)=> func(accu), input); //초깃값 추가
+
+    const makeSandwich = bread =>
+      pipe(bacon, lettuce, cheese)(bread);
+
+    console.log(makeSandwich("White Bread"));  
+
+  </script>
+</body>
+</html>

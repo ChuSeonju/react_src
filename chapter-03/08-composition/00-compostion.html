@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=`, initial-scale=1.0">
+  <title>합성</title>
+</head>
+<body>
+  <h1>합성</h1>
+  <p>Open the Console</p>
+  <script>
+/*  // 체이닝 기법    
+    const template = "hh:mm:ss tt";
+    // 03:33:33 PM
+
+    const clockTime = template.replace("hh", "03").replace("mm", "33").replace("ss", "33").replace("tt", "PM"); 
+//                                   "03:mm:ss tt".      "03:33:ss tt".      "03:33:33 tt".
+    console.log(clockTime);
+*/
+
+// 1. 문자열 -> 배열
+const strToArr = str => str.split(" ");
+// 2. 배열 -> 소문자 변환
+const toLower = arr => arr.map(elm => elm.toLowerCase());
+// 3. 배열 -> "-" 연결된 문자열 변경
+const joinWithDash = arr => arr.join("-");
+
+const  title = "Learning Function Composition 1";
+
+const urlFriendly = joinWithDash( toLower(strToArr(title)) );  //[joinWithDash(), toLower(), strToArr()]
+
+console.log(urlFriendly);
+
+
+/* compose
+// (...매개변수)  : 나머지 매개변수 =>  매개변수를 배열로 만들어줌
+const compose = (...functions) => input => functions.reduceRight((accu, func) => func(accu));
+
+compose(joinWithDash, toLower, strToArr)("Learning Function Composition 1");
+*/
+
+
+
+
+
+
+  </script>
+</body>
+</html>

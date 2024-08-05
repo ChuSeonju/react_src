@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transforming Data</title>
+</head>
+<body>
+  <h1>Transforming Data</h1>
+  <p>Open the Console</p>
+  <script>
+    const ages = [21, 18, 42, 40, 64, 63, 34];
+    // prev = 최종 max 값
+    const maxAge = ages.reduce((prev, cur)=> {
+      console.log(`${prev} < ${cur} = ${cur > prev}`);
+      if(cur > prev) {
+        return cur;
+      } else {
+        return prev;
+      }
+    }, 0);
+
+    console.log("maxAge", maxAge);
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>합성</title>
+</head>
+<body>
+  <h1>합성</h1>
+  <p>Open the Console</p>
+  <script>
+    const createClockTime = (date) => ({date});
+
+    const appendAMPM = ({date}) => ({
+      date,
+      ampm: date.getHours() >= 12 ? "PM" : "AM",
+    });
+
+    // 상용시 ->   14시 -> 2시
+    const civilianHours = (clockTime) => {
+      const hours = clockTime.date.getHours();
+      return {
+        ...clockTime,
+        hours: hours > 12 ? hours - 12 : hours,
+      };
+      //{ date:, ampm:, hours:  }
+    };
+
+    const removeDate = (clockTime) => {
+      let newTime = {...clockTime};
+      delete newTime.date;
+      return newTime;  // { ampm:  , hours:   }
+    }
+
+    // 우아한 합성법
+    const compose = (...fns) => (arg) =>
+      fns.reduce((composed, f) => f(composed), arg);
+
+
+    const oneFunction = compose(
+      createClockTime,
+      appendAMPM,
+      civilianHours,
+      removeDate
+    );
+
+    console.log(oneFunction(new Date()));
+
+  </script>
+  
+</body>
+</html>

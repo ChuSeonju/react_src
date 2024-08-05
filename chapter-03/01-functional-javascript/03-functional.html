@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>함수형이란 무엇인가?</title>
+</head>
+<body>
+  <h1>함수형 자바스크립트</h1>
+  <p>콘솔을 보세요!</p>
+  <script>
+    // 함수를 변수에 넣을 수 있는것처럼
+    // 함수를 객체 넣을 수도 있다.
+    const obj = {
+      message: "함수를 다른 값과 같이 객체에 추가 가능",
+      log(message) {
+        console.log(message);
+      }
+    };
+
+    obj.log(obj.message);
+
+  </script>
+</body>
+</html>

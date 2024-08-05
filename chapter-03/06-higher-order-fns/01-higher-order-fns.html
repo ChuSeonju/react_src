@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>고차함수</title>
+</head>
+<body>
+  <h1>고차함수</h1>
+  <p>함수를 인자 또는 리턴값, 둘다 가능</p>
+  <script>
+    const invokeIf = (condition, fnTrue, fnFalse) =>
+      // fnTrue  = () => console.log("Welcome!!!");
+      // fnFalse = () => console.log("Unauthorized!!!")
+      (condition) ? fnTrue() : fnFalse();
+
+    const showWelcome = () => console.log("Welcome!!!");
+    
+    const showUnauthorized = () => console.log("Unauthorized!!!");
+
+    invokeIf(true, showWelcome, showUnauthorized);  // Welcome!!!
+
+    invokeIf(false, showWelcome, showUnauthorized);
+
+  </script>
+  
+</body>
+</html>
