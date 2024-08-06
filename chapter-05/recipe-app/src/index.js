@@ -17,5 +17,5 @@ function Cat({ name }) {
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<Menu recipes={data} />);
 // root.render(
-//     <Cat name="나비" />
+//     <Cat name="나비" /> // name: props
 // );
