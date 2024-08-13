@@ -14,7 +14,7 @@ function Checkbox() {
     </>
   );
 
-  alert(`checked: ${checked.toString()}`);
+  alert(`checked: ${checked.toString()}`);  // 상위에서 렌더링은 되지만 alert는 도달 불가
 
 }
 

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 function Checkbox() {
   const [checked, setChecked] = useState(false);
-
+  // 렌더링 부수효과로 alert 창 띄움
   useEffect(() => {
     alert(`checked: ${checked.toString()}`);
   });
