@@ -1,0 +1,39 @@
+* {
+  list-style: none;
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif;
+}
+
+body {
+  background: #f5f6fa;
+}
+
+.site-container .sidebar {
+  background: rgb(5, 68, 104);
+  position: fixed;
+  left: 0;
+  width: 150px;
+  height: 100%;
+  padding: 20px 5px;
+  transition: all 0.5s ease;
+}
+
+.site-container .section {
+  margin: 5px;
+  margin-left: 160px;
+}
+
+.site-container .callout {
+  border-style: double;
+  padding: 20px;
+}
+
+.error {
+  background-color: #efacac;
+  border: double 4px darkred;
+  color: darkred;
+  padding: 1em;
+}
