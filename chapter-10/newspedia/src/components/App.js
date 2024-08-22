@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
-import NewsList from './NewsList';
-import NewsForm from './NewsForm';
-import { getNews, createNews, updateNews, deleteNews } from '../api';
+import { useEffect, useState } from "react";
+import NewsList from "./NewsList";
+import NewsForm from "./NewsForm";
+import { getNews, createNews, updateNews, deleteNews } from "../api";
 
 const LIMIT = 6;
 
 function App() {
-  const [order, setOrder] = useState('aid');
+  const [order, setOrder] = useState("aid");
   const [offset, setOffset] = useState(0);
   const [hasNext, setHasNext] = useState(false);
 
@@ -15,8 +15,8 @@ function App() {
   const [isLoading, setIsLoading] = useState(false); // 로딩 처리
   const [loadingError, setLoadingError] = useState(null); //네트웍 에러 처리
 
-  const handleNewestClick = () => setOrder('aid');
-  const handleBestClick = () => setOrder('rating');
+  const handleNewestClick = () => setOrder("aid");
+  const handleBestClick = () => setOrder("rating");
 
   const handleDelete = async (aid) => {
     try {
@@ -27,7 +27,7 @@ function App() {
       setItems(nextItems);
     } catch (error) {
       // 삭제 실패 처리
-      console.error('Error deleting news', error);
+      console.error("Error deleting news", error);
     }
   };
 
