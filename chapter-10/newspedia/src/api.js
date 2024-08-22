@@ -1,13 +1,13 @@
-const BASE_URL = "http://localhost:8090/api";
+const BASE_URL = 'http://localhost:8090/api';
 
-export async function getNews({ order = "aid", offset = 0, limit = 6 }) {
+export async function getNews({ order = 'aid', offset = 0, limit = 6 }) {
   //throw new Error('버그가 아니라 기능입니다.');
 
   const queryString = `order=${order}&offset=${offset}&limit=${limit}`;
 
   const response = await fetch(`${BASE_URL}/news?${queryString}`);
   if (!response.ok) {
-    throw new Error("뉴스를 불러오는데 실패했습니다.");
+    throw new Error('뉴스를 불러오는데 실패했습니다.');
   }
 
   const body = await response.json();
@@ -16,11 +16,11 @@ export async function getNews({ order = "aid", offset = 0, limit = 6 }) {
 
 export async function createNews(formData) {
   const response = await fetch(`${BASE_URL}/news`, {
-    method: "POST",
+    method: 'POST',
     body: formData,
   });
   if (!response.ok) {
-    throw new Error("뉴스를 생성하는데 실패했습니다.");
+    throw new Error('뉴스를 생성하는데 실패했습니다.');
   }
 
   const body = await response.json();
@@ -29,11 +29,11 @@ export async function createNews(formData) {
 
 export async function updateNews(aid, formData) {
   const response = await fetch(`${BASE_URL}/news/${aid}`, {
-    method: "POST",
+    method: 'POST',
     body: formData,
   });
   if (!response.ok) {
-    throw new Error("뉴스를 수정하는데 실패했습니다.");
+    throw new Error('뉴스를 수정하는데 실패했습니다.');
   }
 
   const body = await response.json();
@@ -42,10 +42,10 @@ export async function updateNews(aid, formData) {
 
 export async function deleteNews(aid) {
   const response = await fetch(`${BASE_URL}/news/del/${aid}`, {
-    method: "POST",
+    method: 'POST',
   });
   if (!response.ok) {
-    throw new Error("뉴스를 삭제하는데 실패했습니다.");
+    throw new Error('뉴스를 삭제하는데 실패했습니다.');
   }
 
   const body = await response.json();

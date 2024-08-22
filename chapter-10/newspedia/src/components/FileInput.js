@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from 'react';
 
 function FileInput({ name, value, initialPreview, onChange }) {
   // 이미지 파일 미리보기
@@ -15,7 +15,7 @@ function FileInput({ name, value, initialPreview, onChange }) {
     const inputNode = inputRef.current;
     if (!inputNode) return;
 
-    inputNode.value = "";
+    inputNode.value = '';
     onChange(name, null);
   };
 
@@ -23,7 +23,7 @@ function FileInput({ name, value, initialPreview, onChange }) {
     if (!value) return;
     const nextPreview = URL.createObjectURL(value);
     setPreview(nextPreview);
-    // Clean up
+    //Clean Up
     return () => {
       setPreview(initialPreview);
       URL.revokeObjectURL(nextPreview);

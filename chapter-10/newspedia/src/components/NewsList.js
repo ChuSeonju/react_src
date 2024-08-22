@@ -1,7 +1,7 @@
-import { useState } from "react";
-import Rating from "./Rating";
-import NewsForm from "./NewsForm";
-import "./NewsList.css";
+import { useState } from 'react';
+import Rating from './Rating';
+import NewsForm from './NewsForm';
+import './NewsList.css';
 
 function formatDate(value) {
   const date = new Date(value);
@@ -42,9 +42,7 @@ function NewsList({ items, onUpdate, onUpdateSuccess, onDelete }) {
           const { aid, img, title, rating, content } = item;
           const initialValues = { title, rating, content, imgFile: null };
 
-          const handleSubmit = (formData) => {
-            onUpdate(aid, formData);
-          };
+          const handleSubmit = (formData) => onUpdate(aid, formData);
 
           const handleSubmitSuccess = (news) => {
             onUpdateSuccess(news);
