@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { createNews } from '../api';
-import FileInput from './FileInput';
-import RatingInput from './RatingInput';
-import './NewsForm.css';
+import { useState } from "react";
+// import { createNews } from "../api";
+import FileInput from "./FileInput";
+import RatingInput from "./RatingInput";
+import "./NewsForm.css";
 
 const INITIAL_VALUES = {
-  title: '',
+  title: "",
   rating: 0,
-  content: '',
+  content: "",
   imgFile: null,
 };
 
@@ -21,7 +21,6 @@ function NewsForm({
   const [values, setValues] = useState(initialValues);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submittingError, setSubmittingError] = useState(null);
-
   // 비제어요소
   const handleChange = (name, value) => {
     setValues((prevValues) => ({
@@ -39,14 +38,13 @@ function NewsForm({
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append('title', values.title);
-    formData.append('rating', values.rating);
-    formData.append('content', values.content);
+    formData.append("title", values.title);
+    formData.append("rating", values.rating);
+    formData.append("content", values.content);
     // 중요 : 이미지 파일 존재 시에만
     if (values.imgFile) {
-      formData.append('imgFile', values.imgFile);
+      formData.append("imgFile", values.imgFile);
     }
-
     let result;
     try {
       setSubmittingError(null);
@@ -58,12 +56,10 @@ function NewsForm({
     } finally {
       setIsSubmitting(false);
     }
-
     const news = result;
     setValues(INITIAL_VALUES);
     onSubmitSuccess(news);
   };
-
   return (
     <form className="NewsForm" onSubmit={handleSubmit}>
       <FileInput

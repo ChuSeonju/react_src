@@ -1,7 +1,9 @@
+// components/news/NewsList.js
+
 import { useState } from "react";
 import Rating from "./Rating";
 import NewsForm from "./NewsForm";
-import "./NewsList.css";
+import "../../stylesheet/NewsList.css";
 
 function formatDate(value) {
   const date = new Date(value);
@@ -9,14 +11,11 @@ function formatDate(value) {
 }
 
 function NewsListItem({ item, onDelete, onEdit }) {
-  const handleDeleteClick = () => {
-    onDelete(item.aid);
-  };
+  const handleDeleteClick = () => onDelete(item.aid);
   const { img, title, rating, date, content } = item;
 
-  const handleEditClick = () => {
-    onEdit(item.aid);
-  };
+  const handleEditClick = () => onEdit(item.aid);
+
   return (
     <div className="NewsListItem">
       <img className="NewsListItem-img" src={img} alt={title} />
@@ -32,9 +31,11 @@ function NewsListItem({ item, onDelete, onEdit }) {
   );
 }
 
-function NewsList({ items, onUpdate, onUpdateSuccess, onDelete }) {
-  const [editingId, setEditingId] = useState(null); //15
+function NewsList({ items = [], onUpdate, onUpdateSuccess, onDelete }) {
+  const [editingId, setEditingId] = useState(null);
+
   const handleCancel = () => setEditingId(null);
+
   return (
     <ul className="NewsList">
       {items.map((item) => {

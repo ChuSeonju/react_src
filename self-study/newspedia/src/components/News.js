@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
-import NewsList from "./NewsList";
-import NewsForm from "./NewsForm";
+
+import NewsList from "./news/NewsList";
+import NewsForm from "./news/NewsForm";
+
 import { getNews, createNews, updateNews, deleteNews } from "../api_axios";
+// import { Home } from "./home/Home";
 
 const LIMIT = 6;
 
