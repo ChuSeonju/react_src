@@ -1,12 +1,137 @@
 import React, { useState, useEffect } from "react";
 import Button from "./components/Button";
-import { parseStringPromise } from "xml2js"; // xml2js 라이브러리
 
 export default function LocationApi() {
-  const [map, setMap] = useState();
-  const [marker, setMarker] = useState();
+  const [map, setMap] = useState(null);
+  const [marker, setMarker] = useState(null);
   const [weather, setWeather] = useState(null);
-  // 1) 카카오맵 불러오기
+
+  const convertLatLngToGrid = (lat, lon) => {
+    const map = {
+      Re: 6371.00877,
+      grid: 5.0,
+      slat1: 30.0,
+      slat2: 60.0,
+      olon: 126.0,
+      olat: 38.0,
+      xo: 43,
+      yo: 136,
+      first: 0,
+    };
+
+    const PI = Math.asin(1.0) * 2.0;
+    const DEGRAD = PI / 180.0;
+
+    const re = map.Re / map.grid;
+    const slat1 = map.slat1 * DEGRAD;
+    const slat2 = map.slat2 * DEGRAD;
+    const olon = map.olon * DEGRAD;
+    const olat = map.olat * DEGRAD;
+
+    let sn =
+      Math.tan(PI * 0.25 + slat2 * 0.5) / Math.tan(PI * 0.25 + slat1 * 0.5);
+    sn = Math.log(Math.cos(slat1) / Math.cos(slat2)) / Math.log(sn);
+    let sf = Math.tan(PI * 0.25 + slat1 * 0.5);
+    sf = (Math.pow(sf, sn) * Math.cos(slat1)) / sn;
+    let ro = Math.tan(PI * 0.25 + olat * 0.5);
+    ro = (re * sf) / Math.pow(ro, sn);
+
+    const ra = Math.tan(PI * 0.25 + lat * DEGRAD * 0.5);
+    const raCalculated = (re * sf) / Math.pow(ra, sn);
+    let theta = lon * DEGRAD - olon;
+
+    if (theta > PI) theta -= 2.0 * PI;
+    if (theta < -PI) theta += 2.0 * PI;
+
+    theta *= sn;
+
+    const x = Math.floor(raCalculated * Math.sin(theta) + map.xo + 0.5);
+    const y = Math.floor(ro - raCalculated * Math.cos(theta) + map.yo + 0.5);
+
+    return { nx: x, ny: y };
+  };
+
+  const getCurrentDate = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const date = String(now.getDate()).padStart(2, "0");
+
+    return `${year}${month}${date}`;
+    // return "20240909";
+  };
+
+  const getCurrentHour = () => {
+    const now = new Date();
+    return now.getHours() * 100; // HHmm 형식으로 반환
+    // return 130;
+  };
+
+  const getCurrentBaseTime = () => {
+    const timeBlocks = [
+      "0200",
+      "0500",
+      "0800",
+      "1100",
+      "1400",
+      "1700",
+      "2000",
+      "2300",
+    ];
+    const updateTimeBlocks = [310, 610, 910, 1210, 1510, 1810, 2110, 2410]; // 업데이트 시각
+
+    const now = new Date();
+    const currentMinutes = now.getHours() * 100 + now.getMinutes();
+    // const currentMinutes = 130;
+
+    let baseTime;
+    let baseDate = getCurrentDate(); // 현재 날짜를 기본으로 설정
+    // let baseDate = "20240909";
+
+    // 02:00 이전이라면 전날의 23:00 데이터를 사용
+    if (currentMinutes < 200) {
+      baseTime = "2300";
+      const yesterday = new Date(now);
+      yesterday.setDate(now.getDate() - 1);
+      const year = yesterday.getFullYear();
+      const month = String(yesterday.getMonth() + 1).padStart(2, "0");
+      const date = String(yesterday.getDate()).padStart(2, "0");
+      // baseTime = "2300";
+      // baseDate = "20240908";
+      baseDate = `${year}${month}${date}`; // 전날로 날짜를 설정
+    } else {
+      baseTime = timeBlocks[0];
+      for (let i = 0; i < timeBlocks.length; i++) {
+        if (currentMinutes < updateTimeBlocks[i]) {
+          baseTime = timeBlocks[i - 1] || timeBlocks[0];
+          break;
+        }
+        baseTime = timeBlocks[i];
+      }
+    }
+
+    return { baseTime, baseDate };
+  };
+
+  const findClosestFcstValue = (items, category, targetTime) => {
+    let closestItem = null;
+    let minDiff = Number.MAX_VALUE;
+
+    items.forEach((item) => {
+      if (item.category === category) {
+        const fcstTime = parseInt(item.fcstTime, 10);
+        const diff = Math.abs(fcstTime - targetTime);
+
+        if (diff < minDiff) {
+          minDiff = diff;
+          closestItem = item;
+        }
+      }
+    });
+
+    return closestItem ? closestItem.fcstValue : null;
+  };
+
   useEffect(() => {
     window.kakao.maps.load(() => {
       const container = document.getElementById("map");
@@ -27,18 +152,16 @@ export default function LocationApi() {
       });
       setMarker(kakaoMarker);
 
-      // 지도 클릭 이벤트 리스너 추가
       window.kakao.maps.event.addListener(
         kakaoMap,
         "click",
         function (mouseEvent) {
           const latlng = mouseEvent.latLng;
           kakaoMarker.setPosition(latlng);
-          logMarkerPosition(); // 마커 위치를 로그에 출력
+          logMarkerPosition();
         }
       );
 
-      // 마커 위치 변경 시 호출할 함수
       function logMarkerPosition() {
         const markerPosition = kakaoMarker.getPosition();
         console.log(
@@ -49,19 +172,15 @@ export default function LocationApi() {
         );
       }
 
-      // 마커의 위치를 변경할 때마다 logMarkerPosition 호출
       window.kakao.maps.event.addListener(
         kakaoMarker,
         "dragend",
         logMarkerPosition
       );
-
-      // 마커 드래그 가능하도록 설정
       kakaoMarker.setDraggable(true);
     });
   }, []);
 
-  // 2) 현재 위치 함수
   const getCurrentPosBtn = () => {
     navigator.geolocation.getCurrentPosition(
       getPosSuccess,
@@ -74,11 +193,10 @@ export default function LocationApi() {
     );
   };
 
-  // 3) 정상적으로 현재위치 가져올 경우 실행
   const getPosSuccess = (pos) => {
     const currentPos = new window.kakao.maps.LatLng(
-      pos.coords.latitude, // 위도
-      pos.coords.longitude // 경도
+      pos.coords.latitude,
+      pos.coords.longitude
     );
     if (map) {
       map.panTo(currentPos);
@@ -89,39 +207,86 @@ export default function LocationApi() {
             currentPos.getLat() +
             ", 경도: " +
             currentPos.getLng()
-        ); //소수점 반올림
+        );
       }
     }
   };
 
-  // 날씨 정보 요청 함수
   const fetchWeather = async (lat, lng) => {
     try {
-      // const apiKey =
-      //   "WXHtcvFrkFPssVR/mf0ka3DL3OY2OmoV5kAASB50TZTcwaidSftVlW5mmW7yd7mLci/Y6OSztvcaUVijo2+B9g=="; // 기상청 API 키
-      const response = await fetch(
-        // `http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst
-        // ?serviceKey=${apiKey}
-        // &numOfRows=1&pageNo=1&dataType='JSON'&base_date=20240906&base_time=1300&nx=${lat}&ny=${lng}`
-        `http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=WXHtcvFrkFPssVR/mf0ka3DL3OY2OmoV5kAASB50TZTcwaidSftVlW5mmW7yd7mLci/Y6OSztvcaUVijo2+B9g==&numOfRows=10&pageNo=1&base_date=20240906&base_time=0600&nx=55&ny=127`
+      const { nx, ny } = convertLatLngToGrid(lat, lng);
+      const { baseTime, baseDate } = getCurrentBaseTime();
+
+      console.log("nx:" + nx + " ny:" + ny);
+      console.log("baseTime:" + baseTime);
+      console.log("baseDate:" + baseDate);
+
+      const API_KEY =
+        "WXHtcvFrkFPssVR%2Fmf0ka3DL3OY2OmoV5kAASB50TZTcwaidSftVlW5mmW7yd7mLci%2FY6OSztvcaUVijo2%2BB9g%3D%3D";
+
+      // 1. TMN과 TMX 값 구하기 - baseTime을 항상 0200으로 설정
+      const baseTimeForTMNAndTMX = "0200";
+      const responseForTMNAndTMX = await fetch(
+        `http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=${API_KEY}&numOfRows=200&pageNo=1&dataType=JSON&base_date=${baseDate}&base_time=${baseTimeForTMNAndTMX}&nx=${nx}&ny=${ny}`
       );
+      const jsonDataForTMNAndTMX = await responseForTMNAndTMX.json();
+      console.log("TMN, TMX 응답 데이터:", jsonDataForTMNAndTMX);
 
-      const xmlText = await response.text(); // 응답을 텍스트로 읽기
-      const jsonData = await parseStringPromise(xmlText); // XML을 JSON으로 변환
+      let tmn = null;
+      let tmx = null;
 
-      console.log("날씨 정보:", jsonData);
-      setWeather(jsonData);
+      if (jsonDataForTMNAndTMX.response?.body?.items?.item) {
+        const items = jsonDataForTMNAndTMX.response.body.items.item;
+        tmn = findClosestFcstValue(items, "TMN", 600); // TMN은 0600 고정
+        tmx = findClosestFcstValue(items, "TMX", 1500); // TMX는 1500 고정
+      } else {
+        console.error("TMN, TMX 데이터를 찾을 수 없습니다.");
+      }
+
+      // 2. 나머지 값들 구하기 - baseTime을 유동적으로 설정
+      const response = await fetch(
+        `http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=${API_KEY}&numOfRows=200&pageNo=1&dataType=JSON&base_date=${baseDate}&base_time=${baseTime}&nx=${nx}&ny=${ny}`
+      );
+      const jsonData = await response.json();
+      console.log("전체 응답 데이터:", jsonData);
+
+      let tmp = null;
+      let pop = null;
+      let reh = null;
+      let wsd = null;
+
+      if (jsonData.response?.body?.items?.item) {
+        const items = jsonData.response.body.items.item;
+        const currentTime = getCurrentHour(); // 현재 시간 (HHmm 형식)
+
+        tmp = findClosestFcstValue(items, "TMP", currentTime);
+        pop = findClosestFcstValue(items, "POP", currentTime);
+        reh = findClosestFcstValue(items, "REH", currentTime);
+        wsd = findClosestFcstValue(items, "WSD", currentTime);
+      } else {
+        console.error("API 응답에서 데이터를 찾을 수 없습니다.");
+      }
+
+      // 3. 날씨 상태 업데이트
+      setWeather({
+        TMP: tmp,
+        POP: pop,
+        REH: reh,
+        WSD: wsd,
+        TMN: tmn,
+        TMX: tmx,
+      });
     } catch (error) {
       console.error("날씨 정보 가져오기 실패:", error);
+      setWeather(null);
     }
   };
 
-  // 날씨 확인 버튼 클릭 핸들러
   const handleWeatherCheck = () => {
     if (marker) {
       const markerPosition = marker.getPosition();
-      const lat = markerPosition.getLat(); // 위도
-      const lng = markerPosition.getLng(); // 경도
+      const lat = markerPosition.getLat();
+      const lng = markerPosition.getLng();
       fetchWeather(lat, lng);
     } else {
       alert("마커가 설정되지 않았습니다.");
@@ -132,15 +297,16 @@ export default function LocationApi() {
     <div>
       <div id="map" style={{ width: "100%", height: "400px" }}></div>
       <Button onClick={getCurrentPosBtn}>현재 위치</Button>
-
       <Button onClick={handleWeatherCheck}>날씨 확인</Button>
       {weather && (
         <div>
           <h2>날씨 정보</h2>
-          <p>위도: {weather.lat}</p>
-          <p>경도: {weather.lng}</p>
-          {/* <p>현재 온도: {weather.current.temp_c} °C</p>
-          <p>날씨: {weather.current.condition.text}</p> */}
+          <p>현재 온도: {weather.TMP} °C</p>
+          <p>강수 확률: {weather.POP} %</p>
+          <p>습도: {weather.REH} %</p>
+          <p>풍속: {weather.WSD} m/s</p>
+          <p>최저 기온: {weather.TMN} °C</p>
+          <p>최고 기온: {weather.TMX} °C</p>
         </div>
       )}
     </div>
