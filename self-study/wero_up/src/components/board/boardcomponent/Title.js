@@ -1,9 +1,10 @@
 import React from "react";
 
-function Title({ onChange, value }) {
+function Title({ onChange, value, id }) {
   return (
     <div>
-      <input onChange={onChange} value={value} />
+      <label for={id}>제목</label>
+      <input id={id} onChange={onChange} value={value} />
     </div>
   );
 }

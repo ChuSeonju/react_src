@@ -1,9 +1,16 @@
-function NickName({ value }) {
+const NickName = ({ onChange }) => {
   return (
     <div>
-      <input value={value}></input>
+      <label htmlFor="nickname">닉네임 </label>
+      <input
+        id="nickname"
+        name="nickname"
+        type="text"
+        onChange={onChange}
+        required
+      />
     </div>
   );
-}
+};
 
 export default NickName;
