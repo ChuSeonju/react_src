@@ -55,18 +55,15 @@ const NaverCallback = () => {
   }, []);
 
   const handleLogout = () => {
-    // 네이버 로그아웃을 새 탭에서 처리
-    const logoutWindow = window.open(
-      "https://nid.naver.com/nidlogin.logout",
-      "_blank"
-    );
+    // 로그아웃하면서 네이버로 이동됨,,
+    const logoutWindow = window.open("https://nid.naver.com/nidlogin.logout");
 
     // 로그아웃 후 원래 페이지로 돌아오기 위한 타임아웃 설정
     setTimeout(() => {
       logoutWindow.close(); // 로그아웃 후 탭 닫기
       setUserInfo(null); // 사용자 정보 초기화
       navigate("/"); // 로그인 페이지로 리다이렉트
-    }, 500); // 1초의 지연을 줘서 로그아웃이 확실히 처리되도록 함
+    }, 100); // 0.1초의 지연을 줘서 로그아웃이 확실히 처리되도록 했다는데 그냥 네이버 페이지 빨리 사라지게 하려고 1초에서 0.1초로 설정
   };
 
   return (
