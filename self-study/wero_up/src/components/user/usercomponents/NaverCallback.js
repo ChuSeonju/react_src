@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
+import Button from "../../Button";
+import { useNavigate } from "react-router-dom";
 
 const NaverCallback = () => {
   const clientId = "yOx0bVhLUMBcyD2DjjZa";
+  const clientSecret = "eFMwSRYF6Y";
   const callbackUrl = "http://localhost:3000/callback";
   const [userInfo, setUserInfo] = useState(null); // 유저 정보를 저장할 상태
+  const navigate = useNavigate();
 
   const initializeNaverLogin = () => {
     const naverLogin = new window.naver.LoginWithNaverId({
@@ -31,7 +35,6 @@ const NaverCallback = () => {
         setUserInfo({
           email,
           name,
-
           profileImage,
         });
 
@@ -39,7 +42,6 @@ const NaverCallback = () => {
         console.log("로그인 성공:", {
           email,
           name,
-
           profileImage,
         });
       } else {
@@ -51,6 +53,21 @@ const NaverCallback = () => {
   useEffect(() => {
     initializeNaverLogin();
   }, []);
+
+  const handleLogout = () => {
+    // 네이버 로그아웃을 새 탭에서 처리
+    const logoutWindow = window.open(
+      "https://nid.naver.com/nidlogin.logout",
+      "_blank"
+    );
+
+    // 로그아웃 후 원래 페이지로 돌아오기 위한 타임아웃 설정
+    setTimeout(() => {
+      logoutWindow.close(); // 로그아웃 후 탭 닫기
+      setUserInfo(null); // 사용자 정보 초기화
+      navigate("/"); // 로그인 페이지로 리다이렉트
+    }, 500); // 1초의 지연을 줘서 로그아웃이 확실히 처리되도록 함
+  };
 
   return (
     <div>
@@ -65,6 +82,7 @@ const NaverCallback = () => {
               alt={`${userInfo.name}님의 프로필` }
             />
           )} */}
+          <Button onClick={handleLogout}>로그아웃</Button>
         </div>
       ) : (
         <div>로그인 처리 중...</div>
