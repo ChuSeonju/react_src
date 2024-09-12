@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const NaverCallback = () => {
   const clientId = "yOx0bVhLUMBcyD2DjjZa";
-  const clientSecret = "eFMwSRYF6Y";
+  //  const clientSecret = "eFMwSRYF6Y";
   const callbackUrl = "http://localhost:3000/callback";
   const [userInfo, setUserInfo] = useState(null); // 유저 정보를 저장할 상태
   const navigate = useNavigate();
