@@ -4,7 +4,7 @@
 // import BoardWriteForm from "./components/board/BoardWriteForm";
 // import Button from "./components/Button";
 // import BoardListItem from "./components/board/BoardListItem";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Routes, Route } from "react-router-dom";
 import NaverCallback from "./components/user/usercomponents/NaverCallback";
 import Login from "./components/user/LogIn";
 
@@ -18,12 +18,12 @@ function App() {
   // }, []);
 
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/callback" element={<NaverCallback />} />
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 }
 
