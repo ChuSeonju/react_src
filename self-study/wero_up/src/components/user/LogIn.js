@@ -20,7 +20,7 @@ import NaverLogin from "./usercomponents/NaverLogin";
 const Login = () => {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
   //const navigate = useNavigate();
 
   // const handleSubmit = async (e) => {
@@ -88,8 +88,7 @@ const Login = () => {
             회원가입
           </button>
         </div>
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        {/* <Naver /> */}
+        {/* {error && <p style={{ color: "red" }}>{error}</p>} */}
       </form>
       <NaverLogin />
     </div>
