@@ -13,6 +13,10 @@ function App() {
           <Route path="/category/:category_number" element={<PostList />} />
           <Route path="/category/write" element={<WriteBoard />} />
           <Route
+            path="/category/update"
+            element={<WriteBoard update={true} />}
+          />
+          <Route
             path="/category/contents/:content_id"
             element={<PostingContent />}
           />

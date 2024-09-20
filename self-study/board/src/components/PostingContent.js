@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { UserContext } from "../UserContext";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import "react-quill/dist/quill.snow.css";
+import { deleteContent } from "../Api";
+import { useNavigate } from "react-router-dom";
 
 const BASE_URL = "http://localhost:8090/api";
 
@@ -12,11 +16,13 @@ function contentCombiner(content) {
   let wholeContent = content.htmlContent.replace(/<img src=""/g, () => {
     return `<img src="data:image/jpeg;base64,${content.base64Image.shift()}"`;
   });
-  console.log(wholeContent);
+  // console.log(wholeContent);
   return wholeContent;
 }
 
 const PostingContent = () => {
+  const navigate = useNavigate(); // 네비게이터
+  const { userLoginId } = useContext(UserContext); // 로그인한 아이디 불러오기
   const { content_id } = useParams();
   const [content, setContent] = useState(null);
   const [error, setError] = useState(null);
@@ -31,7 +37,7 @@ const PostingContent = () => {
         const response = await axios.get(
           `${BASE_URL}/contents/posting/content?id=${content_id}`
         );
-        console.log(response.data);
+        // console.log(response.data);
         setContent(response.data);
       } catch (error) {
         setError("컨텐츠를 불러오는데 실패했습니다..");
@@ -58,15 +64,41 @@ const PostingContent = () => {
     return <div>로딩 중...</div>;
   }
 
+  // 업데이트 핸들러
+  const onUpdate = () => {
+    const data = content; // 객체 데이터 전달
+    const dataHtml = html;
+    navigate("/category/update", { state: { data, dataHtml } });
+  };
+
+  // 삭제 핸들러
+  const onDelete = () => {
+    deleteContent(content.content_id);
+    alert("컨텐츠를 삭제했습니다.");
+    navigate(`/category/${content.category_number}`); // 이 부분을 컨텐츠 번호를 조절
+    window.location.reload(); // 카테고리로 갈때 새로고침되기
+  };
+
   // 컴포넌트 생성
   return (
     <div>
       <h1>{content.title}</h1>
+      <p>작성자: {content.user_id}</p>
       <p>수정 날짜: {content.update_day}</p>
       <div
         className="ql-editor" // 이부분이 핵심 innerHTML로 div에 넣은 HTML에 quill에서 입력한 CSS 적용하기
         dangerouslySetInnerHTML={{ __html: html }}
       ></div>
+      {content.user_id === userLoginId ? ( // 작성한 유저와 로그인한 유저가 다를때 수정하기와 삭제하기가 보이지 않음 (뒤로가기만 보임)
+        <button onClick={onUpdate}>수정하기</button>
+      ) : (
+        <Link to={`/category/${content.category_number}`}>
+          <button>뒤로가기</button>
+        </Link>
+      )}
+      {content.user_id === userLoginId ? (
+        <button onClick={onDelete}>삭제하기</button>
+      ) : null}
     </div>
   );
 };

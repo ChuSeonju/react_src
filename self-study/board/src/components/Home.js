@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "../UserContext";
 
 const categories = [
   { number: 1, name: "소모임 육아" },
@@ -15,6 +16,8 @@ const categories = [
 ];
 
 const Home = () => {
+  const { userLoginId } = useContext(UserContext); // 로그인한 아이디 불러오기
+
   return (
     <div>
       <h1>WWERO 메인 홈페이지</h1>

@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { UserContext } from "../UserContext";
 import axios from "axios";
 import { useParams, Link, useLocation } from "react-router-dom";
 
@@ -19,6 +20,7 @@ const categories = [
 ];
 
 const PostList = () => {
+  const { userLoginId } = useContext(UserContext); // 로그인한 아이디 불러오기
   const { category_number } = useParams(); // 이전 라우터 home에서 url에서 1을 가져옴
   const location = useLocation(); // 라우터로 이동했을때 새로고침을 함
 
@@ -30,6 +32,20 @@ const PostList = () => {
   const selectedCategory = categories.find(
     (category) => category.number === parseInt(category_number, 10)
   );
+
+  // salestype 변환 함수
+  const getSaleTypeLabel = (type) => {
+    switch (type) {
+      case "sell":
+        return "팝니다";
+      case "buy":
+        return "삽니다";
+      case "reservation":
+        return "예약중";
+      default:
+        return "";
+    }
+  };
 
   useEffect(() => {
     const getList = async () => {
@@ -65,16 +81,18 @@ const PostList = () => {
       <ul style={{ listStyleType: "none" }}>
         {listsJSON.map((list, index) => (
           <li key={list.content_id}>
-            <Link to={`/category/contents/${list.content_id}`}>
+            <Link to={{ pathname: `/category/contents/${list.content_id}` }}>
               {/* 카테고리가 중고장터(9번)일 때와 아닐 때 구분하여 렌더링 */}
               {category_number === "9" ? (
                 <>
-                  {index + 1} | {list.transaction_type} {/* 삽니다 / 팝니다 */}|
-                  {list.title} | {list.price}원 | {list.update_day}
+                  {index + 1} | {getSaleTypeLabel(list.salestype)}{" "}
+                  {/* 삽니다 / 팝니다 */} | {list.title} | {list.price}원 |{" "}
+                  {list.update_day}
                 </>
               ) : (
                 <>
-                  {index + 1} | {list.title} | {list.update_day}
+                  {index + 1} | {list.title} | {"작성자:" + list.user_id} |{" "}
+                  {list.update_day}
                 </>
               )}
             </Link>
